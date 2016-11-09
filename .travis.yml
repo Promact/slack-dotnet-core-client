@@ -1,0 +1,20 @@
+language: csharp
+mono: none
+os: linux		
+dist: trusty		
+sudo: required
+dotnet: 1.0.0-preview2-003131
+before_install:
+- export CHROME_BIN=chromium-browser
+- export DISPLAY=:99.0
+install:
+- dotnet restore
+before_script:
+- sh -e /etc/init.d/xvfb start
+solution: "./Slack.sln"
+notifications:
+  email:
+    on_success: change
+    on_failure: always
+script:
+- dotnet build ./src/Slack.Net.Core/project.json -c Release
